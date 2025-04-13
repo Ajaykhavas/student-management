@@ -6,9 +6,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { differenceInYears } from 'date-fns';
 import { Student } from '../../interfaces/Students';
 
+export type StudentFormValues = Omit<Student, 'id'>;
+
 interface Props {
   defaultValues?: Student;
-  onSubmit: (data: Student) => void;
+  onSubmit: (data: StudentFormValues) => void;
   onCancel: () => void;
 }
 
@@ -38,7 +40,7 @@ const StudentForm = ({ defaultValues, onSubmit, onCancel }: Props) => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<Student>({
+  } = useForm<StudentFormValues>({
     defaultValues,
     resolver: yupResolver(schema),
   });

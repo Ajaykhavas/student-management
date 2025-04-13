@@ -1,5 +1,5 @@
 import { Student } from '../../interfaces/Students';
-import StudentForm from './StudentForm';
+import StudentForm, { StudentFormValues } from './StudentForm';
 
 interface Props {
   student?: Student;
@@ -8,6 +8,14 @@ interface Props {
 }
 
 const StudentModal = ({ student, onClose, onSave }: Props) => {
+  const handleFormSubmit = (data: StudentFormValues) => {
+    const studentWithId: Student = {
+      ...data,
+      id: student?.id || '',
+    };
+    onSave(studentWithId);
+  };
+
   return (
     <div
       className='fixed inset-0 flex items-center justify-center bg-[#000000b8] bg-opacity-30 z-50'
@@ -22,7 +30,7 @@ const StudentModal = ({ student, onClose, onSave }: Props) => {
         </h3>
         <StudentForm
           defaultValues={student}
-          onSubmit={onSave}
+          onSubmit={handleFormSubmit}
           onCancel={onClose}
         />
       </div>
